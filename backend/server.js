@@ -15,7 +15,14 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: [
+    'ph-hpgz-ckschcoys-a7isss-projects.vercel.app', // Replace with your actual frontend URL
+    'ph-lr89-p77qd1unt-a7isss-projects.vercel.app'    // Replace with your actual admin URL
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  credentials: true, // Allow cookies and authorization headers
+}));
 
 // api endpoints
 app.use("/api/user", userRouter)
