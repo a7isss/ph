@@ -1,3 +1,35 @@
-# Environment
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
 .env
 .env*.local
+
+# Build output
+dist/
+build/
+
+# Debugging
+.vscode/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+.nyc_output/
+jest/
+
+# Package lock files (optional, depending on your workflow)
+# Uncomment if you don't want to commit lock files
+# package-lock.json
+# yarn.lock
