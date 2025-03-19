@@ -9,7 +9,6 @@ import adminRouter from "./routes/adminRoute.js"
 
 // app config
 const app = express()
-const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
@@ -33,7 +32,5 @@ app.get("/", (req, res) => {
   res.send("API Working")
 });
 
-const PORT = process.env.PORT || 4001; // Use 4001 if 4000 is in use
-app.listen(PORT, () => {
-  console.log(`Server started on PORT:${PORT}`);
-});
+// Export the app for serverless deployment
+export default app;

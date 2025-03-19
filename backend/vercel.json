@@ -1,5 +1,0 @@
-{
-  "routes": [
-    { "src": "/(.*)", "dest": "/vercel/path0/backend/server.js" }
-  ]
-}
