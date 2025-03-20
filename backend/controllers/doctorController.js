@@ -8,8 +8,8 @@ const loginDoctor = async (req, res) => {
 
     try {
 
-        const { email, password } = req.body
-        const user = await doctorModel.findOne({ email })
+        const { username, password } = req.body
+        const user = await doctorModel.findOne({ username })
 
         if (!user) {
             return res.json({ success: false, message: "Invalid credentials" })
