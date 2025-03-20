@@ -9,25 +9,23 @@ import userModel from "../models/userModel.js";
 // API for admin login
 const loginAdmin = async (req, res) => {
     try {
-        const { email, password } = req.body;
 
-        // Validate admin credentials
+        const { email, password } = req.body
+
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-            // Create a JWT token with the admin's email as a claim
-            const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-            // Return the token to the client
-            return res.status(200).json({ success: true, token });
+            const token = jwt.sign(email + password, process.env.JWT_SECRET)
+            res.json({ success: true, token })
         } else {
-            // Invalid credentials
-            return res.status(401).json({ success: false, message: "Invalid credentials" });
+            res.json({ success: false, message: "Invalid credentials" })
         }
+
     } catch (error) {
-        console.error(error);
-        // Internal server error
-        return res.status(500).json({ success: false, message: "Internal server error" });
+        console.log(error)
+        res.json({ success: false, message: error.message })
     }
-};
+
+}
+
 
 // API to get all appointments list
 const appointmentsAdmin = async (req, res) => {

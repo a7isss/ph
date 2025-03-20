@@ -9,19 +9,13 @@ import adminRouter from "./routes/adminRoute.js"
 
 // app config
 const app = express()
+const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
 // middlewares
 app.use(express.json())
-app.use(cors({
-  origin: [
-    'https://ph-hpgz.vercel.app/', // Replace with your actual frontend URL
-    'https://ph-lr89.vercel.app/'    // Replace with your actual admin URL
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  credentials: true, // Allow cookies and authorization headers
-}));
+app.use(cors())
 
 // api endpoints
 app.use("/api/user", userRouter)
@@ -32,5 +26,4 @@ app.get("/", (req, res) => {
   res.send("API Working")
 });
 
-// Export the app for serverless deployment
-export default app;
+app.listen(port, () => console.log(`Server started on PORT:${port}`))
