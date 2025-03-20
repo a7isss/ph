@@ -36,6 +36,11 @@ app.use((req, res, next) => {
   next();
 });
 app.options("*", cors());
+app.use((req, res, next) => {
+  console.log('Incoming Request Origin:', req.headers.origin);
+  console.log('Request Path:', req.path);
+  next();
+});
 
 // api endpoints
 app.use("/api/user", userRouter)
