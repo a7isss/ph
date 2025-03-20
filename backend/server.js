@@ -30,6 +30,12 @@ app.use(
 
 // middlewares
 app.use(express.json())
+app.use((req, res, next) => {
+  console.log('Origin:', req.headers.origin);
+  console.log('Path:', req.path);
+  next();
+});
+app.options("*", cors());
 
 // api endpoints
 app.use("/api/user", userRouter)
