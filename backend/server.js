@@ -13,9 +13,23 @@ const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
+// CORS configuration
+const allowedOrigins = ["https://ph-lr89.vercel.app", "https://ph-cvgb.vercel.app"];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow cookies or authorization headers
+  })
+);
+
 // middlewares
 app.use(express.json())
-app.use(cors())
 
 // api endpoints
 app.use("/api/user", userRouter)
