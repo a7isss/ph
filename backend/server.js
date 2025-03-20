@@ -14,7 +14,7 @@ connectDB()
 connectCloudinary()
 
 // CORS configuration
-const allowedOrigins = ["https://ph-lr89.vercel.app", "https://ph-cvgb.vercel.app"];
+const allowedOrigins = ["https://ph-hpgz.vercel.app", "https://ph-lr89.vercel.app"];
 app.use(
   cors({
     origin: (origin, callback) => {
