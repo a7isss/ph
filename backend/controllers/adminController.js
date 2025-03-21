@@ -8,7 +8,39 @@ import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
 
 // Other admin functions...
+// API to add a new doctor
+const addDoctor = async (req, res) => {
+    try {
+        const { name, specialty, email, password } = req.body;
 
+        // Validate input
+        if (!name || !specialty || !email || !password) {
+            return res.status(400).json({ success: false, message: "All fields are required" });
+        }
+
+        // Check if the email is already in use
+        const existingDoctor = await doctorModel.findOne({ email });
+        if (existingDoctor) {
+            return res.status(400).json({ success: false, message: "Doctor with this email already exists" });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new doctor
+        const newDoctor = await doctorModel.create({
+            name,
+            specialty,
+            email,
+            password: hashedPassword,
+        });
+
+        res.status(201).json({ success: true, message: "Doctor added successfully", doctor: newDoctor });
+    } catch (error) {
+        console.error("Error adding doctor:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
 // API to delete a doctor
 const deleteDoctorAdmin = async (req, res) => {
     try {
@@ -36,8 +68,8 @@ export {
     loginAdmin,
     appointmentsAdmin,
     appointmentCancel,
-    addDoctor,
+    addDoctor, // Ensure this is included
     allDoctors,
     adminDashboard,
-    deleteDoctorAdmin // Export the new function
+    deleteDoctorAdmin
 };
