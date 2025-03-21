@@ -6,25 +6,37 @@ import validator from "validator";
 import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
 
-// API for admin login
 const loginAdmin = async (req, res) => {
     try {
+        const { username, password } = req.body;
 
-        const { username, password } = req.body
+        // Debug logs to verify environment variables
+        console.log("ADMIN_EMAIL:", process.env.ADMIN_EMAIL);
+        console.log("ADMIN_PASSWORD:", process.env.ADMIN_PASSWORD);
+        console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
-        if (username === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-            const token = jwt.sign(username + password, process.env.JWT_SECRET)
-            res.json({ success: true, token })
-        } else {
-            res.json({ success: false, message: "Invalid credentials" })
+        // Validate input
+        if (!username || !password) {
+            return res.json({ success: false, message: "Missing username or password" });
         }
 
-    } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: error.message })
-    }
+        // Normalize username for case-insensitive comparison
+        const normalizedUsername = username.toLowerCase();
+        const adminEmail = process.env.ADMIN_EMAIL.toLowerCase();
 
-}
+        // Compare credentials
+        if (normalizedUsername === adminEmail && password === process.env.ADMIN_PASSWORD) {
+            // Generate a secure JWT token
+            const token = jwt.sign({ username: normalizedUsername }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            return res.json({ success: true, token });
+        } else {
+            return res.json({ success: false, message: "Invalid credentials" });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.json({ success: false, message: error.message });
+    }
+};
 
 
 // API to get all appointments list
