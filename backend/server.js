@@ -16,8 +16,9 @@ connectCloudinary()
 // CORS configuration
 const allowedOrigins = [
   "https://ph-hpgz.vercel.app",
-  "https://ph-lr89.vercel.app",
-  "https://www.lahm.sa" // Add the new origin here
+  "https://www.lahm.sa",
+  "https://admin.lahm.sa"
+  // CORS configuration
 ];
 app.use(
   cors({
