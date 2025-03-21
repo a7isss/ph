@@ -8,6 +8,11 @@ const Home = () => {
   return (
     <div>
       <Header />
+      <div style={{ textAlign: 'right', margin: '10px' }}>
+        <button style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
+          Login
+        </button>
+      </div>
       <SpecialityMenu />
       <TopDoctors />
       <Banner />
