@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const authAdmin = async (req, res, next) => {
     try {
         const { atoken } = req.headers;
-
+        console.log("Received Token (atoken):", atoken);
         // Check if the token exists
         if (!atoken) {
             return res.json({ success: false, message: "Not Authorized. Login Again." });
