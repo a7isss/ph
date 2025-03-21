@@ -14,7 +14,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     backend: {
-      loadPath: '/src/locales/ar.json', // Path to translation files
+      loadPath: '/locales/{{lng}}.json', // Correct path for Vercel
       debug: true, // Enable backend debugging
     },
     detection: {
