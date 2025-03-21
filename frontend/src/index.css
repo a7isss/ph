@@ -1,23 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Cairo:wght@200..900&display=swap'); /* ar: Added Cairo font for Arabic support */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Default font-family */
 * {
-    font-family: Outfit;
+    font-family: 'Cairo', 'Outfit', sans-serif; /* ar: Added Cairo for Arabic and kept Outfit for other languages */
 }
 
+/* Active state styles */
 .active hr {
-    @apply block
+    @apply block;
 }
 
 @media (max-width:740px) {
-    .active  p{
-       @apply text-white bg-primary
+    .active p {
+        @apply text-white bg-primary;
     }
 }
 
+/* Scrollbar styles */
 ::-webkit-scrollbar {
-    @apply hidden
+    @apply hidden;
+}
+
+/* RTL support */
+[dir="rtl"] { /* ar: Added RTL support */
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] .active p { /* ar: Adjusted active state for RTL */
+    @apply text-white bg-primary;
+}
+
+[dir="rtl"] ::-webkit-scrollbar { /* ar: Adjusted scrollbar for RTL */
+    @apply hidden;
 }
