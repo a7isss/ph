@@ -6,8 +6,9 @@ import {
   addDoctor,
   allDoctors,
   adminDashboard,
+  deleteDoctor // Correctly imported from adminController.js
 } from '../controllers/adminController.js';
-import { changeAvailablity, deleteDoctor } from '../controllers/doctorController.js'; // Import deleteDoctor
+import { changeAvailablity } from '../controllers/doctorController.js'; // Only import changeAvailablity from doctorController.js
 import authAdmin from '../middleware/authAdmin.js';
 import upload from '../middleware/multer.js';
 
