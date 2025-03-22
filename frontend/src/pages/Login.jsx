@@ -17,7 +17,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const { data } = await axios.post(backendUrl + '/api/user/login', { email, password });
+      const { data } = await axios.post(backendUrl + '/api/admin/login', { username, password });
 
       if (data.success) {
         localStorage.setItem('aToken', data.aToken); // Store token in localStorage
