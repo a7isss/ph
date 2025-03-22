@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 // admin authentication middleware
 const authAdmin = async (req, res, next) => {
     try {
-        // Extract the token from the headers (case-sensitive, explicitly looking for aToken)
-        const aToken = req.headers.aToken || req.headers.authorization; // Prefer aToken, fallback to Authorization
+        // Extract the token from the headers (case-insensitive, handle Bearer tokens)
+        const aToken = req.headers['atoken'] || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
         console.log("Received Token (aToken):", aToken);
 
         // Check if the token exists
