@@ -22,9 +22,11 @@ const Login = () => {
     if (state === 'Admin') {
       try {
         const { data } = await axios.post(backendUrl + '/api/admin/login', { username, password })
+        console.log("Login Response:", data);
         if (data.success) {
           setAToken(data.aToken) // Use data.aToken to match the backend response
           localStorage.setItem('aToken', data.aToken) // Store the correct token in localStorage
+          console.log("Stored aToken:", localStorage.getItem('aToken'));
           toast.success("Admin login successful!")
         } else {
           toast.error(data.message)
@@ -36,6 +38,7 @@ const Login = () => {
     } else {
       try {
         const { data } = await axios.post(backendUrl + '/api/doctor/login', { username, password })
+        console.log("Login Response:", data);
         if (data.success) {
           setDToken(data.token) // Assuming the doctor login still uses data.token
           localStorage.setItem('dToken', data.token)

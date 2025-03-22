@@ -5,6 +5,19 @@ import axios from 'axios'
 import { AdminContext } from '../../context/AdminContext'
 import { AppContext } from '../../context/AppContext'
 
+axios.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('aToken'); // Retrieve the token from localStorage
+        if (token) {
+            config.headers['aToken'] = token; // Add the token to the headers
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 const AddDoctor = () => {
 
     const [docImg, setDocImg] = useState(false)
