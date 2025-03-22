@@ -10,10 +10,10 @@ import userModel from "../models/userModel.js";
 // API to log in an admin
 const loginAdmin = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
         // Validate input
-        if (!email || !password) {
+        if (!username || !password) {
             return res.status(400).json({ success: false, message: "Email and password are required" });
         }
 
