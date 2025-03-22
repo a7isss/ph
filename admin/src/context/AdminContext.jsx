@@ -11,6 +11,7 @@ const AdminContextProvider = (props) => {
 
     const [aToken, setAToken] = useState(localStorage.getItem('aToken') ? localStorage.getItem('aToken') : '')
     console.log('aToken:', aToken)
+    console.log("Stored aToken:", localStorage.getItem('aToken')); // Check if it's stored in localStorage
     const [appointments, setAppointments] = useState([])
     const [doctors, setDoctors] = useState([])
     const [dashData, setDashData] = useState(false)
@@ -100,6 +101,7 @@ const AdminContextProvider = (props) => {
 
             if (data.success) {
                 setDashData(data.dashData)
+                console.log("Login Response:", data); // Check if data.aToken exists
             } else {
                 toast.error(data.message)
             }
