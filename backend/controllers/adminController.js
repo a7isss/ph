@@ -10,33 +10,27 @@ import userModel from "../models/userModel.js";
 // API to log in an admin
 const loginAdmin = async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password } = req.body; // Extract username and password from the request body
 
         // Validate input
         if (!username || !password) {
-            return res.status(400).json({ success: false, message: "Email and password are required" });
+            return res.status(400).json({ success: false, message: "Username and password are required" });
         }
 
-        // Find the admin by email
-        const admin = await userModel.findOne({ email, role: "admin" });
-
-        if (!admin) {
-            return res.status(404).json({ success: false, message: "Admin not found" });
-        }
-
-        // Check the password
-        const isPasswordValid = await bcrypt.compare(password, admin.password);
-
-        if (!isPasswordValid) {
+        // Compare the provided username and password with the .env values
+        if (username !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
-        // Generate a JWT token
-        const token = jwt.sign({ id: admin._id, role: admin.role }, process.env.JWT_SECRET, {
-            expiresIn: "1d",
-        });
+        // Generate a JWT token named aToken
+        const aToken = jwt.sign(
+            { username, role: "admin" }, // Payload
+            process.env.JWT_SECRET, // Secret key
+            { expiresIn: "1d" } // Token expiration
+        );
 
-        res.status(200).json({ success: true, token });
+        // Send the token in the response
+        res.status(200).json({ success: true, aToken });
     } catch (error) {
         console.error("Error logging in admin:", error);
         res.status(500).json({ success: false, message: "Server error" });
