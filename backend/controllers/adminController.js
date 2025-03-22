@@ -11,7 +11,7 @@ import userModel from "../models/userModel.js";
 const loginAdmin = async (req, res) => {
     try {
         const { username, password } = req.body; // Extract username and password from the request body
-
+        console.log("Login request received Yeeehaw:", req.body); // Debug log to print the received data
         // Validate input
         if (!username || !password) {
             return res.status(400).json({ success: false, message: "Username and password are required" });
