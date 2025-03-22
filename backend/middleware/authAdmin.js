@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const authAdmin = async (req, res, next) => {
     try {
         // Extract the token from the headers (case-insensitive, handle Bearer tokens)
-        const aToken = req.headers['atoken'] || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
+        const aToken = req.headers['aToken'] || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
         console.log("Received Token (aToken):", aToken);
 
         // Check if the token exists
