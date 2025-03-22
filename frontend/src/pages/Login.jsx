@@ -33,7 +33,9 @@ const Login = () => {
 
       if (data.success) {
         localStorage.setItem('aToken', data.aToken); // Use consistent naming
-        setAToken(data.aToken); // Update context state
+        setAToken(data.aToken);
+        console.log('Token set in localStorage:', data.aToken);
+        console.log('Current aToken in context:', aToken); // Update context state
         toast.success(t('login_successful'));
       } else {
         toast.error(data.message);
