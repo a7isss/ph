@@ -13,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
-  const { backendUrl, token, setToken } = useContext(AppContext);
+  const { backendUrl, aToken, setAToken } = useContext(AppContext); // Use consistent naming
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -22,8 +22,9 @@ const Login = () => {
       const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password });
 
       if (data.success) {
-        localStorage.setItem('token', data.token);
-        setToken(data.token);
+        localStorage.setItem('aToken', data.aToken); // Use consistent naming
+        setAToken(data.aToken); // Update context state
+        toast.success(t('account_created_successfully'));
       } else {
         toast.error(data.message);
       }
@@ -31,8 +32,9 @@ const Login = () => {
       const { data } = await axios.post(backendUrl + '/api/user/login', { email, password });
 
       if (data.success) {
-        localStorage.setItem('token', data.token);
-        setToken(data.token);
+        localStorage.setItem('aToken', data.aToken); // Use consistent naming
+        setAToken(data.aToken); // Update context state
+        toast.success(t('login_successful'));
       } else {
         toast.error(data.message);
       }
@@ -40,10 +42,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (token) {
+    if (aToken) {
       navigate('/');
     }
-  }, [token]);
+  }, [aToken]);
 
   // Language switcher (optional)
   const changeLanguage = (lng) => {

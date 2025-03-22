@@ -8,9 +8,10 @@ const AppContextProvider = (props) => {
 
     const currencySymbol = '₹';
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    console.log("Backend URL from AppContext:", backendUrl);
 
     const [doctors, setDoctors] = useState([]);
-    const [token, setToken] = useState(localStorage.getItem('atoken') ? localStorage.getItem('atoken') : '');
+    const [aToken, setAToken] = useState(localStorage.getItem('aToken') ? localStorage.getItem('aToken') : '');
     const [userData, setUserData] = useState(false);
 
     // Getting Doctors using API
@@ -31,7 +32,7 @@ const AppContextProvider = (props) => {
     // Getting User Profile using API
     const loadUserProfileData = async () => {
         try {
-            const { data } = await axios.get(backendUrl + '/api/user/get-profile', { headers: { atoken: token } });
+            const { data } = await axios.get(backendUrl + '/api/user/get-profile', { headers: { aToken } });
             if (data.success) {
                 setUserData(data.userData);
             } else {
@@ -48,16 +49,16 @@ const AppContextProvider = (props) => {
     }, []);
 
     useEffect(() => {
-        if (token) {
+        if (aToken) {
             loadUserProfileData();
         }
-    }, [token]);
+    }, [aToken]);
 
     const value = {
         doctors, getDoctosData,
         currencySymbol,
         backendUrl,
-        token, setToken,
+        aToken, setAToken,
         userData, setUserData, loadUserProfileData
     };
 
