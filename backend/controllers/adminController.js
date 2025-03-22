@@ -18,8 +18,11 @@ const loginAdmin = async (req, res) => {
         }
 
         // Compare the provided username and password with the .env values
-        if (username !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
-            return res.status(401).json({ success: false, message: "Invalid credentials" });
+        if (username !== process.env.ADMIN_EMAIL) {
+            return res.status(401).json({ success: false, message: "Invalid username" });
+        }
+        if (password !== process.env.ADMIN_PASSWORD) {
+            return res.status(401).json({ success: false, message: "Invalid password" });
         }
 
         // Generate a JWT token named aToken
@@ -36,6 +39,8 @@ const loginAdmin = async (req, res) => {
         res.status(500).json({ success: false, message: "Server error" });
     }
 };
+
+
 
 // API to add a new doctor
 const addDoctor = async (req, res) => {
